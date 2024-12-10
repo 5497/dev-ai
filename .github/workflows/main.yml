@@ -23,6 +23,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install transformers torch
 
-    - name: Run Hugging Face script
+    - name: Run Hugging Face script with prompt 1
       run: |
-        python your_huggingface_script.py
+        python your_huggingface_script.py "Explain how generative AI can be used in software development"
+
+    - name: Run Hugging Face script with prompt 2
+      run: |
+        python your_huggingface_script.py "What are the benefits of using AI in healthcare?"
+
+    - name: Run Hugging Face script with prompt 3
+      run: |
+        python your_huggingface_script.py "How can AI improve customer service?"
