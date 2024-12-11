@@ -1,0 +1,35 @@
+name: Auto PR Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Generate workflow file
+      run: |
+        python generate_workflow.py "New Workflow" "main" "run-job" "your_script.py"
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git checkout -b new-workflow-branch
+        git add .github/workflows/generated_workflow.yml
+        git commit -m "Add generated workflow"
+        git push origin new-workflow-branch
